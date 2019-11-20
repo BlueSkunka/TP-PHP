@@ -1,7 +1,7 @@
 <?php
 
 $server = 'localhost';
-$dbname = 'api';
+$dbname = 'cul';
 $user = 'root';
 $password = 'pass';
 
