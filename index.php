@@ -1,42 +1,32 @@
 <?php
 //Inclusion des classes
-if (isset ($_GET['control']))
-{
 
-}
-include "modele/connexion.php";
+// include "model/pdo.php";
 include 'view/layout/head.php';
 
 // *** on récupère l'action à entreprendre *** 
-if (isset ($_GET['control']))
+if (isset ($_GET['action']))
 {
-	$control = $_GET['control'];
-	if ($control != "connexion"){
+	$controllerName = $_GET['action'];
+	if ($controllerName != "connexion"){
 		session_start();
-		if (isset($_SESSION["user"])) {
-			$util = unserialize($_SESSION['user']);
-		}else{
-			header("Location: index.php");
-		}
 	}
 }
 else
 {
-	$control = 'init';
+	$controllerName = 'home';
 }
 
 // *** traitement de l'action ***
-$scriptControl = 'controller/';
-include $scriptControl;
+$controller = 'controller/'.$controllerName.'.php';
+include $controller;
 
 // *** génération de la vue ***
-$scriptVue = '';
+// $view = '';
 
 // *** Affichage de la navbar sauf si la page de connexion est à chargé ***
-if ($scriptVue != "view/v-init.php")
-{
-	include "view/layout/navbar.php";
-}
-include $scriptVue;
-//include "view/layout/footer.php";
+
+include 'view/'.$view.'.php';
+
+include "view/layout/footer.php";
 ?>
