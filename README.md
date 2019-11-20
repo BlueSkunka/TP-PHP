@@ -1,6 +1,11 @@
 # TP-PHP
 
+Authors: Somveille Quentin - Billot Romain
+
 * A basic php course project * 
+
+## REQUIRMENTS:
+  - PHP 7.1+
 
 ## INSTALLATION:
 
