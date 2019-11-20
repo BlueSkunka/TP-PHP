@@ -1,15 +1,18 @@
 <?php
-//Inclusion des classes
 
-include "model/pdo.php";
+// *** import de la connexion à la bdd ***
+require "model/pdo.php";
+
+// *** import des modèles ***
+
+// *** demarrage de la session ***
+session_start();
 
 // *** on récupère l'action à entreprendre *** 
 if (isset ($_GET['action']))
 {
-	$controllerName = $_GET['action'];
-	if ($controllerName != "connexion"){
-		session_start();
-	}
+	$controllerName = $_GET['controller'];
+	$action = $_GET['action'];
 }
 else
 {
@@ -20,13 +23,10 @@ else
 $controller = 'controller/'.$controllerName.'.php';
 include $controller;
 
-// *** génération de la vue ***
-// $view = '';
-
-// *** Affichage de la navbar sauf si la page de connexion est à chargé ***
+// *** génération de la page ***
 include 'view/layout/header.php';
 include 'view/layout/navbar.php';
 include 'view/'.$view.'.php';
-
 include "view/layout/footer.php";
+
 ?>
