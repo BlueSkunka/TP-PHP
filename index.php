@@ -1,8 +1,7 @@
 <?php
 //Inclusion des classes
 
-// include "model/pdo.php";
-include 'view/layout/head.php';
+include "model/pdo.php";
 
 // *** on récupère l'action à entreprendre *** 
 if (isset ($_GET['action']))
@@ -25,7 +24,8 @@ include $controller;
 // $view = '';
 
 // *** Affichage de la navbar sauf si la page de connexion est à chargé ***
-
+include 'view/layout/header.php';
+include 'view/layout/navbar.php';
 include 'view/'.$view.'.php';
 
 include "view/layout/footer.php";
