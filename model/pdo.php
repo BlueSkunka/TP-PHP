@@ -1,9 +1,9 @@
 <?php
 
-$server = '';
-$dbname = '';
-$user = '';
-$password = '';
+$server = 'localhost';
+$dbname = 'api';
+$user = 'root';
+$password = 'pass';
 
 try{
     $pdo = new PDO('mysql:host='.$server.';dbname='.$dbname.';charset=utf8', $user, $password);
