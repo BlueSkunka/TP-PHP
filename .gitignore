@@ -1,2 +1,2 @@
-model/pdo.php
 .idea/
+config/db.php
