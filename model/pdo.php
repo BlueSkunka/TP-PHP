@@ -1,7 +1,7 @@
 <?php
 
 function initiateConnection() {
-    include_once '../config/db.dist.php';
+    include_once '../config/db.php';
     $credentials = getDatabaseCredentials();
 
     try{
