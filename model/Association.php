@@ -1,21 +1,28 @@
 <?php
 
-namespace projet\model;
+namespace model;
 
-class Association
+require_once "Structure.php";
+
+
+class Association extends Structure
 {
-    private $_id;
     private $_isAssociation = 1;
     private $_donorNumber;
 
     /**
      * Association constructor.
      * @param int $_id
+     * @param string $_name
+     * @param string $_streetName
+     * @param int $_postalCode
+     * @param string $_cityName
      * @param int $_isAssociation
      * @param int $_donorNumber
      */
-    public function __construct(int $_isAssociation, int $_donorNumber)
+    public function __construct(int $id, string $name, string $streetName, string $postalCode, string $cityName, int $_isAssociation, int $_donorNumber)
     {
+        parent($id, $name, $streetName, $postalCode, $cityName);
         $this->_isAssociation = $_isAssociation;
         $this->_donorNumber = $_donorNumber;
     }
@@ -50,5 +57,26 @@ class Association
     public function setDonorNumber(int $donorNumber)
     {
         $this->_donorNumber = $donorNumber;
+    }
+
+    /**
+     * @return array $associations
+     */
+    static public function getAll()
+    {
+        require_once "pdo.php";
+        $pdo = initiateConnection();
+
+        $req = "SELECT ID FROM structure WHERE ESTASSO = 1 ORDER BY NOM";
+        $stmt = $pdo->exec($req);
+
+        $associations = [];
+
+        while ($row = $stmt->fetch()) {
+            $association = Structure::getFromId($row['ID']);
+            $associations[] = $association;
+        }
+
+        return $associations;
     }
 }

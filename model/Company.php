@@ -1,19 +1,27 @@
 <?php
 
-namespace projet\model;
+namespace model;
 
-class Company
+require_once "Structure.php";
+
+class Company extends Structure
 {
     private $_isAssociation = 0;
     private $_shareholderNumber;
 
     /**
      * Company constructor.
+     * @param int $_id 
+     * @param string $_name
+     * @param string $_streetName
+     * @param int $_postalCode
+     * @param string $_cityName
      * @param int $_isAssociation
      * @param $_shareholderNumber
      */
-    public function __construct(int $_isAssociation, int $_shareholderNumber)
+    public function __construct(int $id, string $name, string $streetName, int $postalCode, string $cityName, int $_isAssociation, int $_shareholderNumber)
     {
+        parent($id, $name, $streetName, $postalCode, $cityName);
         $this->_isAssociation = $_isAssociation;
         $this->_shareholderNumber = $_shareholderNumber;
     }
@@ -50,5 +58,23 @@ class Company
         $this->_shareholderNumber = $shareholderNumber;
     }
 
+    /**
+     * @return array $companies
+     */
+    static public function getAll() {
+        require_once "pdo.php";
+        $pdo = initiateConnection();
 
+        $req = "SELECT ID FROM structure WHERE ESTASSO = 0 ORDER BY NOM";
+        $stmt = $pdo->exec($req);
+
+        $companies = [];
+
+        while ($row = $stmt->fetch()) {
+            $company = Structure::getFromId($row['ID']);
+            $companies[] = $company;
+        }
+
+        return $companies;
+    }
 }

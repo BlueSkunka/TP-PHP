@@ -3,7 +3,17 @@
 // *** import de la connexion à la bdd ***
 require "model/pdo.php";
 
-// *** import des modèles ***
+// *** use des modeles ***
+use model\Association;
+use model\Company;
+use model\Sector;
+use model\Structure;
+
+// *** require des modeles ***
+// require_once "model/Association.php";
+// require_once "model/Company.php";
+// require_once "model/Sector.php";
+// require_once "model/Structure.php";
 
 // *** demarrage de la session ***
 session_start();

@@ -1,6 +1,6 @@
 <?php
 
-namespace projet\model;
+namespace model;
 
 class Sector
 {

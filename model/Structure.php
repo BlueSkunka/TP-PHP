@@ -1,9 +1,10 @@
 <?php
 
-namespace projet\model;
+namespace model;
 
 class Structure
 {
+    protected $_id;
     protected $_name;
     protected $_streetName;
     protected $_postalCode;
@@ -11,17 +12,27 @@ class Structure
 
     /**
      * Structure constructor.
-     * @param $_name
-     * @param $_streetName
-     * @param $_postalCode
-     * @param $_cityName
+     * @param int $_id 
+     * @param string $_name
+     * @param string $_streetName
+     * @param int $_postalCode
+     * @param string $_cityName
      */
-    public function __construct(string $_name, string $_streetName, string $_postalCode, string $_cityName)
+    public function __construct(int $id, string $_name, string $_streetName, string $_postalCode, string $_cityName)
     {
+        $this->_id = $id;
         $this->_name = $_name;
         $this->_streetName = $_streetName;
         $this->_postalCode = $_postalCode;
         $this->_cityName = $_cityName;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->_id;
     }
 
     /**
@@ -97,4 +108,5 @@ class Structure
 
         return $arr;
     }
+
 }
