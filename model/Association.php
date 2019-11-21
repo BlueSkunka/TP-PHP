@@ -1,5 +1,7 @@
 <?php
 
+namespace projet\model;
+
 class Association
 {
     private $_id;

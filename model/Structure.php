@@ -1,5 +1,6 @@
 <?php
 
+namespace projet\model;
 
 class Structure
 {
@@ -90,6 +91,18 @@ class Structure
     static public function getFromId(int $id) {
         include_once "pdo.php";
         $pdo = initiateConnection();
-        $req = `SELECT * FROM structure`;
+        $res = $pdo->prepare(`SELECT * FROM structure WHERE id= :id`)
+            ->execute([
+               ":id" => $id
+            ]);
+
+        $res2 = $pdo->prepare(`SELECT * FROM structure WHERE id= :id`)
+            ->fetch([
+                ":id" => $id
+            ]);
+
+        var_dump($res);
+        var_dump($res2);
+        die();
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+namespace projet\model;
 
 class Company
 {
