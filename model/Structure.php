@@ -101,8 +101,6 @@ class Structure
                 ":id" => $id
             ]);
 
-        var_dump($res);
-        var_dump($res2);
-        die();
+        return $res2;
     }
 }
