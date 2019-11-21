@@ -91,16 +91,10 @@ class Structure
     static public function getFromId(int $id) {
         include_once "pdo.php";
         $pdo = initiateConnection();
-        $res = $pdo->prepare(`SELECT * FROM structure WHERE id= :id`)
-            ->execute([
-               ":id" => $id
-            ]);
+        $stmt = $pdo->prepare("SELECT * FROM structure WHERE id = ?");
+        $stmt->execute([$id]);
+        $arr = $stmt->fetchAll();
 
-        $res2 = $pdo->prepare(`SELECT * FROM structure WHERE id= :id`)
-            ->fetch([
-                ":id" => $id
-            ]);
-
-        return $res2;
+        return $arr;
     }
 }
