@@ -61,12 +61,13 @@ class Company extends Structure
     /**
      * @return array $companies
      */
-    static public function getAll() {
+    static public function getAll()
+    {
         require_once "pdo.php";
         $pdo = initiateConnection();
 
         $req = "SELECT ID FROM structure WHERE ESTASSO = 0 ORDER BY NOM";
-        $stmt = $pdo->exec($req);
+        $stmt = $pdo->query($req);
 
         $companies = [];
 

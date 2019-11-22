@@ -20,7 +20,7 @@
         </div>
       </li>
 
-      <!-- SECTOR -->
+      <!-- Sector -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sector
@@ -31,6 +31,6 @@
           <a class="dropdown-item" href="/index.php?controller=sector&action=list">List</a>
         </div>
       </li>
-
+    </ul>
   </div>
 </nav>

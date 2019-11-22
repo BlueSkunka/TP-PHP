@@ -62,13 +62,13 @@ class Association extends Structure
     /**
      * @return array $associations
      */
-    static public function getAll()
+    public static function getAll()
     {
         require_once "pdo.php";
         $pdo = initiateConnection();
 
         $req = "SELECT ID FROM structure WHERE ESTASSO = 1 ORDER BY NOM";
-        $stmt = $pdo->exec($req);
+        $stmt = $pdo->query($req);
 
         $associations = [];
 
