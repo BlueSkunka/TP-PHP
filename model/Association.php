@@ -66,37 +66,4 @@ class Association extends Structure
     {
         return parent::getAdresse();
     }
-
-    /**
-     * @param int $id
-     * @return Association $association
-     */
-    public static function getFromId(int $id)
-    {
-        $row = parent::getFromId($id);
-        $association = new Association($row['ID'], $row['NOM'], $row['RUE'], $row['CP'], $row['VILLE'], 1, $row['NB_DONATEURS']);
-
-        return $association;
-    }
-
-    /**
-     * @return array $associations
-     */
-    public static function getAll()
-    {
-        require_once "pdo.php";
-        $pdo = initiateConnection();
-
-        $req = "SELECT ID FROM structure WHERE ESTASSO = 1 ORDER BY NOM";
-        $stmt = $pdo->query($req);
-
-        $associations = [];
-
-        while ($row = $stmt->fetch()) {
-            $association = Association::getFromId($row['ID']);
-            $associations[] = $association;
-        }
-
-        return $associations;
-    }
 }

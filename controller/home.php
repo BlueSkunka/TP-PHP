@@ -1,17 +1,17 @@
 <?php
 
-use model\Association;
-use model\Company;
+use model\manager\AssociationManager;
+use model\manager\CompanyManager;
 
-require_once "./model/Association.php";
-require_once "./model/Company.php";
+require_once "./model/manager/associationManager.php";
+require_once "./model/manager/companyManager.php";
 
 /**
  * * récupération de toutes les structures et
  * * secteurs pour un affichage global 
  */
-$associations = Association::getAll();
-$companies = Company::getAll();
+$associations = AssociationManager::getAll();
+$companies = CompanyManager::getAll();
 // $sectors = Sector::getAll();
 
 $view = "home";

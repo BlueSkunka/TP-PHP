@@ -111,15 +111,4 @@ class Structure
 
         return $adresse;
     }
-
-    static public function getFromId(int $id)
-    {
-        include_once "pdo.php";
-        $pdo = initiateConnection();
-        $stmt = $pdo->prepare("SELECT * FROM structure WHERE id = ?");
-        $stmt->execute([$id]);
-        $arr = $stmt->fetch();
-
-        return $arr;
-    }
 }
