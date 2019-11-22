@@ -21,7 +21,7 @@ class Company extends Structure
      */
     public function __construct(int $id, string $name, string $streetName, int $postalCode, string $cityName, int $_isAssociation, int $_shareholderNumber)
     {
-        parent($id, $name, $streetName, $postalCode, $cityName);
+        parent::__construct($id, $name, $streetName, $postalCode, $cityName);
         $this->_isAssociation = $_isAssociation;
         $this->_shareholderNumber = $_shareholderNumber;
     }
@@ -59,9 +59,29 @@ class Company extends Structure
     }
 
     /**
+     * @return string $adresse
+     */
+    public function getAdresse()
+    {
+        return parent::getAdresse();
+    }
+
+    /**
+     * @param int $id
+     * @return Company $company
+     */
+    public static function getFromId($id)
+    {
+        $row = parent::getFromId($id);
+        $company = new Company($row['ID'], $row['NOM'], $row['RUE'], $row['CP'], $row['VILLE'], 0, $row['NB_ACTIONNAIRES']);
+
+        return $company;
+    }
+
+    /**
      * @return array $companies
      */
-    static public function getAll()
+    public static function getAll()
     {
         require_once "pdo.php";
         $pdo = initiateConnection();
@@ -72,7 +92,7 @@ class Company extends Structure
         $companies = [];
 
         while ($row = $stmt->fetch()) {
-            $company = Structure::getFromId($row['ID']);
+            $company = Company::getFromId($row['ID']);
             $companies[] = $company;
         }
 

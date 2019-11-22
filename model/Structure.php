@@ -18,7 +18,7 @@ class Structure
      * @param int $_postalCode
      * @param string $_cityName
      */
-    public function __construct(int $id, string $_name, string $_streetName, string $_postalCode, string $_cityName)
+    public function __construct(int $id, string $_name, string $_streetName, int $_postalCode, string $_cityName)
     {
         $this->_id = $id;
         $this->_name = $_name;
@@ -99,14 +99,27 @@ class Structure
         $this->_cityName = $cityName;
     }
 
-    static public function getFromId(int $id) {
+    /**
+     * @return string $adresse
+     */
+    public function getAdresse()
+    {
+        $adresse = "";
+        $adresse += $this->_streetName + " ";
+        $adresse += $this->_postalCode + " ";
+        $adresse += $this->_cityName;
+
+        return $adresse;
+    }
+
+    static public function getFromId(int $id)
+    {
         include_once "pdo.php";
         $pdo = initiateConnection();
         $stmt = $pdo->prepare("SELECT * FROM structure WHERE id = ?");
         $stmt->execute([$id]);
-        $arr = $stmt->fetchAll();
+        $arr = $stmt->fetch();
 
         return $arr;
     }
-
 }

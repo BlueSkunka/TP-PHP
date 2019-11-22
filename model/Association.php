@@ -20,9 +20,9 @@ class Association extends Structure
      * @param int $_isAssociation
      * @param int $_donorNumber
      */
-    public function __construct(int $id, string $name, string $streetName, string $postalCode, string $cityName, int $_isAssociation, int $_donorNumber)
+    public function __construct(int $id, string $name, string $streetName, int $postalCode, string $cityName, int $_isAssociation, int $_donorNumber)
     {
-        parent($id, $name, $streetName, $postalCode, $cityName);
+        parent::__construct($id, $name, $streetName, $postalCode, $cityName);
         $this->_isAssociation = $_isAssociation;
         $this->_donorNumber = $_donorNumber;
     }
@@ -60,6 +60,26 @@ class Association extends Structure
     }
 
     /**
+     * @return string $adresse
+     */
+    public function getAdresse()
+    {
+        return parent::getAdresse();
+    }
+
+    /**
+     * @param int $id
+     * @return Association $association
+     */
+    public static function getFromId(int $id)
+    {
+        $row = parent::getFromId($id);
+        $association = new Association($row['ID'], $row['NOM'], $row['RUE'], $row['CP'], $row['VILLE'], 1, $row['NB_DONATEURS']);
+
+        return $association;
+    }
+
+    /**
      * @return array $associations
      */
     public static function getAll()
@@ -73,7 +93,7 @@ class Association extends Structure
         $associations = [];
 
         while ($row = $stmt->fetch()) {
-            $association = Structure::getFromId($row['ID']);
+            $association = Association::getFromId($row['ID']);
             $associations[] = $association;
         }
 
