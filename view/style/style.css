@@ -25,3 +25,27 @@ span.flashy-text {
 div.gap-top-sm {
     margin-top: 18px;
 }
+
+a.button-link-create {
+    background-color: #28a745;
+    font-size: 20px;
+    padding: 6px;
+    text-decoration: none;
+    color: white;
+    border: solid 1px #04a71b;
+    border-radius: 6px;
+}
+
+a.button-link-create:hover {
+    cursor: pointer;
+    background-color: white;
+    color: #28a745;
+}
+
+thead tr th {
+    color: #49abff;
+}
+
+table.table {
+    margin-top: 12px;
+}

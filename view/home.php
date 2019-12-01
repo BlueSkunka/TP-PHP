@@ -9,7 +9,7 @@
             <h1>Dashboard</h1>
             <p> Vous retrouverez ici quelque statistique des entrées en base de données.
                 Vous pouvez ajouter ou lister chaque entité en cliquant sur l'entité correspondante disponible
-                dans la barre de navigation </p>
+                dans la barre de navigation. </p>
         </div>
 
     </div>
