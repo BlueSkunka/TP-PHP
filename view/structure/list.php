@@ -38,8 +38,13 @@
                     echo "<th scope=\"row\">" . $association->getCityName() . "</th>";
                     echo "<th scope=\"row\">" . $association->getDonorNumber() . "</th>";
                     echo "<th scope=\"row\">" . $association->getSector()->getLabel() . "</th>";
-                    echo "<th scope=\"row\"> <a href='#'><i class=\"material-icons orange600\">edit</i></a> 
-                            <a href='#'><i class=\"material-icons red600\">delete</i></a>
+                    echo "<th scope=\"row\"> 
+                            <a href='". BASE_PATH . "/index.php?controller=structure&action=edit&id=". $association->getId() ."'>
+                                <i class=\"material-icons orange600\">edit</i>
+                            </a> 
+                            <a href='". BASE_PATH . "/index.php?controller=structure&action=delete&id=". $association->getId() ."'>
+                                <i class=\"material-icons red600\">delete</i>
+                            </a>
                          </th>";
                     echo "</tr>";
                 }
@@ -76,8 +81,13 @@
                     echo "<th scope=\"row\">" . $company->getCityName() . "</th>";
                     echo "<th scope=\"row\">" . $company->getShareholderNumber() . "</th>";
                     echo "<th scope=\"row\">" . $company->getSector()->getLabel() . "</th>";
-                    echo "<th scope=\"row\"> <a href='#'><i class=\"material-icons orange600\">edit</i></a> 
-                            <a href='#'><i class=\"material-icons red600\">delete</i></a>
+                    echo "<th scope=\"row\"> 
+                            <a href='". BASE_PATH . "/index.php?controller=structure&action=edit&id=". $company->getId() ."'>
+                                <i class=\"material-icons orange600\">edit</i>
+                            </a> 
+                            <a href='". BASE_PATH . "/index.php?controller=structure&action=delete&id=". $company->getId() ."'>
+                                <i class=\"material-icons red600\">delete</i>
+                            </a>
                          </th>";
                     echo "</tr>";
                 }
