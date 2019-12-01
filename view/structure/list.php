@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <h3> Associations : </h3>
             <table class="table table-striped">
                 <thead>
@@ -23,6 +23,7 @@
                     <th scope="col">CP</th>
                     <th scope="col">Ville</th>
                     <th scope="col">Nombre de donateur</th>
+                    <th scope="col">Secteur</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -36,6 +37,7 @@
                     echo "<th scope=\"row\">" . $association->getPostalCode() . "</th>";
                     echo "<th scope=\"row\">" . $association->getCityName() . "</th>";
                     echo "<th scope=\"row\">" . $association->getDonorNumber() . "</th>";
+                    echo "<th scope=\"row\">" . $association->getSector()->getLabel() . "</th>";
                     echo "<th scope=\"row\"> <a href='#'><i class=\"material-icons orange600\">edit</i></a> 
                             <a href='#'><i class=\"material-icons red600\">delete</i></a>
                          </th>";
@@ -48,7 +50,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <h3> Entreprises : </h3>
             <table class="table table-striped">
                 <thead>
@@ -59,6 +61,7 @@
                     <th scope="col">CP</th>
                     <th scope="col">Ville</th>
                     <th scope="col">Nombre d'actionnaires</th>
+                    <th scope="col">Secteur</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -72,6 +75,7 @@
                     echo "<th scope=\"row\">" . $company->getPostalCode() . "</th>";
                     echo "<th scope=\"row\">" . $company->getCityName() . "</th>";
                     echo "<th scope=\"row\">" . $company->getShareholderNumber() . "</th>";
+                    echo "<th scope=\"row\">" . $company->getSector()->getLabel() . "</th>";
                     echo "<th scope=\"row\"> <a href='#'><i class=\"material-icons orange600\">edit</i></a> 
                             <a href='#'><i class=\"material-icons red600\">delete</i></a>
                          </th>";

@@ -17,9 +17,9 @@ class Company extends Structure
      * @param string $_cityName
      * @param $_shareholderNumber
      */
-    public function __construct(int $id, string $name, string $streetName, int $postalCode, string $cityName, int $_shareholderNumber)
+    public function __construct(int $id, string $name, string $streetName, int $postalCode, string $cityName, int $_shareholderNumber, Sector $sector = null)
     {
-        parent::__construct($id, $name, $streetName, $postalCode, $cityName);
+        parent::__construct($id, $name, $streetName, $postalCode, $cityName, $sector);
         $this->_shareholderNumber = $_shareholderNumber;
     }
 

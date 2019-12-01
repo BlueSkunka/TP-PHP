@@ -9,6 +9,7 @@ class Structure
     protected $_streetName;
     protected $_postalCode;
     protected $_cityName;
+    protected $_sector;
 
     /**
      * Structure constructor.
@@ -18,13 +19,14 @@ class Structure
      * @param int $_postalCode
      * @param string $_cityName
      */
-    public function __construct(int $id, string $_name, string $_streetName, int $_postalCode, string $_cityName)
+    public function __construct(int $id, string $_name, string $_streetName, int $_postalCode, string $_cityName, Sector $sector = null)
     {
         $this->_id = $id;
         $this->_name = $_name;
         $this->_streetName = $_streetName;
         $this->_postalCode = $_postalCode;
         $this->_cityName = $_cityName;
+        $this->_sector = $sector;
     }
 
     /**
@@ -110,5 +112,21 @@ class Structure
         $adresse += $this->_cityName;
 
         return $adresse;
+    }
+
+    /**
+     * @return Sector
+     */
+    public function getSector(): Sector
+    {
+        return $this->_sector;
+    }
+
+    /**
+     * @param Sector $sector
+     */
+    public function setSector(Sector $sector)
+    {
+        $this->_sector = $sector;
     }
 }
