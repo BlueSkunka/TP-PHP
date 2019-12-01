@@ -22,13 +22,13 @@ class AssociationManager
         $stmt->execute([$id]);
         $row = $stmt->fetch();
 
-        $association = new Association($row['ID'], $row['NOM'], $row['RUE'], $row['CP'], $row['VILLE'], 1, $row['NB_DONATEURS']);
+        $association = new Association($row['ID'], $row['NOM'], $row['RUE'], $row['CP'], $row['VILLE'], $row['NB_DONATEURS']);
 
         return $association;
     }
 
     /**
-     * @return array $associations
+     * @return Association[] $associations
      */
     public static function getAll()
     {

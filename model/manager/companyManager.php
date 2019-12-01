@@ -28,7 +28,7 @@ class CompanyManager
     }
 
     /**
-     * @return array $companies
+     * @return Company[] $companies
      */
     public static function getAll()
     {

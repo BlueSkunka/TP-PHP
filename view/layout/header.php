@@ -16,6 +16,9 @@
     <!-- Style.css -->
     <link rel="stylesheet" href="view/style/style.css">
 
+    <!-- Material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <title>TP-PHP</title>
 </head>
 

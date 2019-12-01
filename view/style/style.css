@@ -49,3 +49,6 @@ thead tr th {
 table.table {
     margin-top: 12px;
 }
+
+.material-icons.orange600 { color: #FB8C00; }
+.material-icons.red600 { color: #fb3436; }
