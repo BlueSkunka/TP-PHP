@@ -19,7 +19,7 @@ class Structure
      * @param int $_postalCode
      * @param string $_cityName
      */
-    public function __construct(int $id, string $_name, string $_streetName, int $_postalCode, string $_cityName, Sector $sector = null)
+    public function __construct(int $id = null, string $_name, string $_streetName, int $_postalCode, string $_cityName, Sector $sector = null)
     {
         $this->_id = $id;
         $this->_name = $_name;

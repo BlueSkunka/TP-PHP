@@ -18,7 +18,7 @@ class Association extends Structure
      * @param string $_cityName
      * @param int $_donorNumber
      */
-    public function __construct(int $id, string $name, string $streetName, int $postalCode, string $cityName, int $_donorNumber, Sector $sector = null)
+    public function __construct(int $id = null, string $name, string $streetName, int $postalCode, string $cityName, int $_donorNumber, Sector $sector = null)
     {
         parent::__construct($id, $name, $streetName, $postalCode, $cityName, $sector);
         $this->_donorNumber = $_donorNumber;
