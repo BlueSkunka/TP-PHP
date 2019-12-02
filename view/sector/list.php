@@ -7,7 +7,7 @@
                 bouton nouveau.</p>
         </div>
         <div class="col-lg-2 offset-lg-2">
-            <a class="button-link-create" href="<?= BASE_PATH ?>/index.php?controller=structure&action=new">
+            <a class="button-link-create" href="<?= BASE_PATH ?>/index.php?controller=sector&action=new">
                 Nouveau </a>
         </div>
     </div>
