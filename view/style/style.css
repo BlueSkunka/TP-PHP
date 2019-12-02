@@ -26,17 +26,22 @@ div.gap-top-sm {
     margin-top: 18px;
 }
 
-a.button-link-create {
+.button-link-create {
+    margin-top: 8px;
+    display: block;
+    width: 70%;
+    text-align: center;
     background-color: #28a745;
     font-size: 20px;
-    padding: 6px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     text-decoration: none;
     color: white;
     border: solid 1px #04a71b;
     border-radius: 6px;
 }
 
-a.button-link-create:hover {
+.button-link-create:hover {
     cursor: pointer;
     background-color: white;
     color: #28a745;
@@ -50,5 +55,43 @@ table.table {
     margin-top: 12px;
 }
 
-.material-icons.orange600 { color: #FB8C00; }
-.material-icons.red600 { color: #fb3436; }
+.form-group input {
+    height: 50px;
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid #b7b7b7;
+    box-shadow: none;
+    border-radius: 2px;
+    color: #00637b;
+    display: block;
+    width: 100%;
+}
+.form-group input[type="radio"] {
+    display: inline;
+    border-radius: 2px;
+    text-align: center;
+    width: 49%;
+    height: 24px;
+}
+
+.form-group label {
+    font-family: Roboto, sans-serif;
+    margin-bottom: 4px;
+}
+
+span.required {
+    color: #fb3436;
+}
+
+.radio-label {
+    text-align: center;
+    width: 49%;
+}
+
+.material-icons.orange600 {
+    color: #FB8C00;
+}
+
+.material-icons.red600 {
+    color: #fb3436;
+}
