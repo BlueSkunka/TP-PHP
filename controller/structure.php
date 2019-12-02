@@ -4,11 +4,13 @@ use model\Association;
 use model\Company;
 use model\manager\CompanyManager;
 use model\manager\AssociationManager;
+use model\manager\SectorManager;
 use model\manager\StructureManager;
 
 require_once "./model/manager/associationManager.php";
 require_once "./model/manager/companyManager.php";
 require_once "./model/manager/structureManager.php";
+require_once "./model/manager/sectorManager.php";
 
 // *** appelle de la fonction ***
 $selectedStructure = null;
@@ -18,6 +20,8 @@ if (isset($_GET)) {
         case 'new':
 
             $view = "structure/form";
+            $sectors = SectorManager::getAll();
+
             break;
 
         case 'show':
@@ -31,6 +35,7 @@ if (isset($_GET)) {
             $view = "structure/form";
             $id = $_GET['id'];
             $selectedStructure = StructureManager::getFromId($id);
+            $sectors = SectorManager::getAll();
 
             break;
 

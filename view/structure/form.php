@@ -4,6 +4,16 @@ require_once "config/base_path.php";
 use model\Association;
 use model\Company;
 
+$structureType = $selectedStructure ? (
+    $selectedStructure instanceof Association ? (
+        "association"
+    ) : "company"
+) : null;
+$participantNumber = $structureType ? (
+    $structureType == "association" ? (
+        $selectedStructure->getDonorNumber()
+    ) : $selectedStructure->getShareholderNumber()
+) : null;
 ?>
 <div class="container gap-top-sm">
     <div class="row">
@@ -43,17 +53,37 @@ use model\Company;
                     <label for="postalCode">Type <span class="required">*</span></label>
                     <div class="form-group">
                         <label class="radio-label" for="association">
-                            <input required id="association" name="type" type="radio" value="association"
+                            <input required id="association" name="type" type="radio" onclick="handleRadioClick(this);"
+                                   value="association"
                                 <?= $selectedStructure instanceof Association ? "checked" : "" ?>/>
                             Association
                         </label>
 
                         <label class="radio-label" for="company">
-                            <input required id="company" name="type" type="radio" value="company"
+                            <input required id="company" name="type" type="radio" onclick="handleRadioClick(this);"
+                                   value="company"
                                 <?= $selectedStructure instanceof Company ? "checked" : "" ?>/>
                             Entreprise
                         </label>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="participantNumber" id="participantNumber">Nombre de donateur(s) <span
+                                class="required">*</span></label>
+                    <input required id="participantNumber" name="participantNumber" type="number" placeholder="38610"
+                           value="<?= $participantNumber ?>"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="sector">Secteur <span class="required">*</span></label>
+                    <select name="sector" id="sector">
+                        <?php
+                        foreach ($sectors as $sector) {
+                            echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . "></option>";
+                        }
+                        ?>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -62,5 +92,21 @@ use model\Company;
             </form>
         </div>
     </div>
+    <script>
+        const changeLabelBasedOnStructureType = (structureType) => {
+            const labelReference = document.getElementById("participantNumber");
+            if (structureType === "association") {
+                labelReference.textContent = "Nombre de donateur(s)";
+            } else {
+                labelReference.textContent = "Nombre d'actionnair(s)";
+            }
+        };
+
+        const handleRadioClick = (element) => {
+            changeLabelBasedOnStructureType(element.value)
+        };
+
+        changeLabelBasedOnStructureType("<?= $structureType ?>");
+    </script>
     <?php var_dump($selectedStructure); ?>
 </div>

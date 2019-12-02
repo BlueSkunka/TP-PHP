@@ -28,19 +28,19 @@ class SectorManager
     }
 
     /**
-     * @return array $sectors
+     * @return Sector[] $sectors
      */
     public static function getAll()
     {
         $pdo = initiateConnection();
 
-        $req = "SELECT S.LIBELLE FROM secteur S";
+        $req = "SELECT * FROM secteur S";
         $stmt = $pdo->query($req);
 
         $sectors = [];
 
         while ($row = $stmt->fetch()) {
-            $sector = $row;
+            $sector = new Sector($row['ID'], $row['LIBELLE']);
             $sectors[] = $sector;
         }
 
