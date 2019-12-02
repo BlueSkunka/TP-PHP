@@ -66,7 +66,7 @@ class SectorManager
     private function create(Sector $sector) {
         $pdo = initiateConnection();
 
-        // Insert the entity
+        // Insert the sector
         $stmt = $pdo->prepare("
             INSERT INTO secteur (ID, LIBELLE) VALUES (:id, :label)
         ");
@@ -84,7 +84,7 @@ class SectorManager
     private function update(Sector $sector) {
         $pdo = initiateConnection();
 
-        // Insert the entity
+        // Update the sector
         $stmt = $pdo->prepare("
             UPDATE secteur SET LIBELLE=:label WHERE ID=:id
         ");
