@@ -6,16 +6,19 @@ class Sector
 {
     private $_id;
     private $_label;
+    private $_isDeletable;
 
     /**
      * Structure constructor.
      * @param int $id
      * @param string $label
+     * @param bool $isDeletable
      */
-    public function __construct(int $id, string $label)
+    public function __construct(int $id, string $label, bool $isDeletable = false)
     {
         $this->_id = $id;
         $this->_label = $label;
+        $this->_isDeletable = $isDeletable;
     }
 
     /**
@@ -48,6 +51,22 @@ class Sector
     public function setId(int $id)
     {
         $this->_id = $id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeletable(): bool
+    {
+        return $this->_isDeletable;
+    }
+
+    /**
+     * @param bool $isDeletable
+     */
+    public function setIsDeletable(bool $isDeletable)
+    {
+        $this->_isDeletable = $isDeletable;
     }
 
 }

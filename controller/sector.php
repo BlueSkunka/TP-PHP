@@ -15,12 +15,11 @@ if (isset($_GET)) {
                 $id = intval($_POST["id"]);
             }
 
-            // Try to create the entity with the constructor.
             $sector = new Sector($id, $_POST["label"]);
             SectorManager::save($sector);
 
             $view = "sector/list";
-            $sectors = SectorManager::getAll();
+            $sectors = SectorManager::getAllWithExtraInformations();
             break;
         case 'new':
             $sector = null;
@@ -30,10 +29,10 @@ if (isset($_GET)) {
         case 'delete':
             $id = $_GET['id'];
 
-            // @TODO: Check if there is no attached structure to this sector.
-
+            SectorManager::delete($id);
+            $sectors = SectorManager::getAllWithExtraInformations();
             $view = "sector/list";
-            $sectors = SectorManager::getAll();
+
             break;
         case 'edit':
 
@@ -43,7 +42,7 @@ if (isset($_GET)) {
             break;
         case 'list':
             $view = "sector/list";
-            $sectors = SectorManager::getAll();
+            $sectors = SectorManager::getAllWithExtraInformations();
             break;
     }
 }

@@ -47,6 +47,23 @@ class SectorManager
         return $sectors;
     }
 
+    public static function getAllWithExtraInformations() {
+        $pdo = initiateConnection();
+
+        $req = "SELECT DISTINCT S.*, SC.ID AS IS_DELETABLE FROM secteur S LEFT JOIN secteurs_structures SC ON (SC.ID_SECTEUR = S.ID)
+            GROUP BY S.ID, S.LIBELLE, SC.ID";
+        $stmt = $pdo->query($req);
+
+        $sectors = [];
+
+        while ($row = $stmt->fetch()) {
+            $sector = new Sector($row['ID'], $row['LIBELLE'], $row['IS_DELETABLE']? false: true);
+            $sectors[] = $sector;
+        }
+
+        return $sectors;
+    }
+
     public static function delete(int $id) {
         $pdo = initiateConnection();
 

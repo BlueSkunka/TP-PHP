@@ -32,11 +32,14 @@
                     echo "<th scope=\"row\"> 
                             <a href='". BASE_PATH . "/index.php?controller=sector&action=edit&id=". $sector->getId() ."'>
                                 <i class=\"material-icons orange600\">edit</i>
-                            </a> 
-                            <a href='". BASE_PATH . "/index.php?controller=sector&action=delete&id=". $sector->getId() ."'>
+                            </a> ";
+                    if ($sector->isDeletable()) {
+                        echo "<a href='". BASE_PATH . "/index.php?controller=sector&action=delete&id=". $sector->getId() ."'>
                                 <i class=\"material-icons red600\">delete</i>
-                            </a>
-                         </th>";
+                                </a>";
+                    }
+
+                    echo "</th>";
                     echo "</tr>";
                 }
                 ?>
