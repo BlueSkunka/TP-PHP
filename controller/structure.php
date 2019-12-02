@@ -38,9 +38,6 @@ if (isset($_GET)) {
             $id = $_GET['id'];
             StructureManager::delete($id);
 
-            require_once "./model/manager/companyManager.php";
-            require_once "./model/manager/associationManager.php";
-
             $companies = CompanyManager::getAll();
             $associations = AssociationManager::getAll();
 
@@ -67,8 +64,6 @@ if (isset($_GET)) {
 
         case 'list':
         default:
-            require_once "./model/manager/companyManager.php";
-            require_once "./model/manager/associationManager.php";
 
             $companies = CompanyManager::getAll();
             $associations = AssociationManager::getAll();
