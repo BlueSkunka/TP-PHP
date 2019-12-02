@@ -62,9 +62,9 @@ class StructureManager
 
     public static function save($entity) {
         if ($entity->getId() != null) {
-            (new StructureManager)->update($entity);
+            return (new StructureManager)->update($entity);
         } else {
-            (new StructureManager)->create($entity);
+            return (new StructureManager)->create($entity);
         }
     }
 
