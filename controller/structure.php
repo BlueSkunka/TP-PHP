@@ -12,21 +12,16 @@ require_once "./model/manager/companyManager.php";
 require_once "./model/manager/structureManager.php";
 require_once "./model/manager/sectorManager.php";
 
-// *** appelle de la fonction ***
 $selectedStructure = null;
 
+// Switch to the right action
+// according to the action GET parameter
 if (isset($_GET)) {
     switch ($action) {
         case 'new':
 
             $view = "structure/form";
             $sectors = SectorManager::getAll();
-
-            break;
-
-        case 'show':
-
-            $view = "structure/show";
 
             break;
 
@@ -80,7 +75,6 @@ if (isset($_GET)) {
 
             $view = "structure/list";
             break;
-
     };
 }
 
