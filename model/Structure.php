@@ -13,11 +13,12 @@ class Structure
 
     /**
      * Structure constructor.
-     * @param int $_id 
+     * @param int|null $id
      * @param string $_name
      * @param string $_streetName
      * @param int $_postalCode
      * @param string $_cityName
+     * @param Sector|null $sector
      */
     public function __construct(int $id = null, string $_name, string $_streetName, int $_postalCode, string $_cityName, Sector $sector = null)
     {
@@ -115,9 +116,9 @@ class Structure
     }
 
     /**
-     * @return Sector
+     * @return Sector|null
      */
-    public function getSector(): Sector
+    public function getSector()
     {
         return $this->_sector;
     }

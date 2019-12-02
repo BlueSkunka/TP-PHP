@@ -1,4 +1,7 @@
 <?php
+
+use model\Association;
+use model\Company;
 use model\manager\CompanyManager;
 use model\manager\AssociationManager;
 use model\manager\StructureManager;
@@ -31,9 +34,10 @@ if (isset($_GET)) {
 
             break;
 
-        case 'handle_submit':
-            var_dump($_POST);
-        case 'list':
+        case 'delete':
+            $id = $_GET['id'];
+            StructureManager::delete($id);
+
             require_once "./model/manager/companyManager.php";
             require_once "./model/manager/associationManager.php";
 
@@ -41,7 +45,26 @@ if (isset($_GET)) {
             $associations = AssociationManager::getAll();
 
             $view = "structure/list";
+            break;
+        case 'handle_submit':
+            $entity = null;
+            if ($_POST["type"] == "association") {
+                $entity = new Association(null, $_POST["name"], $_POST["streetName"], $_POST["postalCode"], $_POST["cityName"], 0);
+            } else {
+                $entity = new Company(null, $_POST["name"], $_POST["streetName"], $_POST["postalCode"], $_POST["cityName"], 0);
+            }
 
+            StructureManager::save($entity);
+
+        case 'list':
+        default:
+            require_once "./model/manager/companyManager.php";
+            require_once "./model/manager/associationManager.php";
+
+            $companies = CompanyManager::getAll();
+            $associations = AssociationManager::getAll();
+
+            $view = "structure/list";
             break;
 
     };

@@ -30,6 +30,7 @@
                 <tbody>
                 <?php
                 foreach ($associations as $association) {
+                    $sectorName = $association->getSector()? $association->getSector()->getLabel(): "null";
                     echo "<tr>";
                     echo "<th scope=\"row\">" . $association->getId() . "</th>";
                     echo "<th scope=\"row\">" . $association->getName() . "</th>";
@@ -37,7 +38,7 @@
                     echo "<th scope=\"row\">" . $association->getPostalCode() . "</th>";
                     echo "<th scope=\"row\">" . $association->getCityName() . "</th>";
                     echo "<th scope=\"row\">" . $association->getDonorNumber() . "</th>";
-                    echo "<th scope=\"row\">" . $association->getSector()->getLabel() . "</th>";
+                    echo "<th scope=\"row\">" . $sectorName . "</th>";
                     echo "<th scope=\"row\"> 
                             <a href='". BASE_PATH . "/index.php?controller=structure&action=edit&id=". $association->getId() ."'>
                                 <i class=\"material-icons orange600\">edit</i>
@@ -73,6 +74,7 @@
                 <tbody>
                 <?php
                 foreach ($companies as $company) {
+                    $sectorName = $company->getSector()? $company->getSector()->getLabel(): "null";
                     echo "<tr>";
                     echo "<th scope=\"row\">" . $company->getId() . "</th>";
                     echo "<th scope=\"row\">" . $company->getName() . "</th>";
@@ -80,7 +82,7 @@
                     echo "<th scope=\"row\">" . $company->getPostalCode() . "</th>";
                     echo "<th scope=\"row\">" . $company->getCityName() . "</th>";
                     echo "<th scope=\"row\">" . $company->getShareholderNumber() . "</th>";
-                    echo "<th scope=\"row\">" . $company->getSector()->getLabel() . "</th>";
+                    echo "<th scope=\"row\">" . $sectorName . "</th>";
                     echo "<th scope=\"row\"> 
                             <a href='". BASE_PATH . "/index.php?controller=structure&action=edit&id=". $company->getId() ."'>
                                 <i class=\"material-icons orange600\">edit</i>
