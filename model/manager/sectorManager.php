@@ -18,11 +18,11 @@ class SectorManager
     {
         $pdo = initiateConnection();
 
-        $stmt = $pdo->prepare("SELECT * FROM sector WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT * FROM secteur WHERE id = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch();
 
-        $sector = new Sector($row['LIBELLE']);
+        $sector = new Sector($row['ID'], $row['LIBELLE']);
 
         return $sector;
     }

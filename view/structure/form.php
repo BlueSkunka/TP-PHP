@@ -71,7 +71,7 @@ $participantNumber = $structureType ? (
                 <div class="form-group">
                     <label for="participantNumber" id="participantNumber">Nombre de donateur(s) <span
                                 class="required">*</span></label>
-                    <input required id="participantNumber" name="participantNumber" type="number" placeholder="38610"
+                    <input required id="participantNumber" name="participantNumber" type="number" placeholder="50000"
                            value="<?= $participantNumber ?>"/>
                 </div>
 
@@ -108,5 +108,4 @@ $participantNumber = $structureType ? (
 
         changeLabelBasedOnStructureType("<?= $structureType ?>");
     </script>
-    <?php var_dump($selectedStructure); ?>
 </div>
