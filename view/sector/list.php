@@ -17,32 +17,32 @@
             <h3> Secteurs : </h3>
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Libellé</th>
-                    <th scope="col">Actions</th>
-                </tr>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Libellé</th>
+                        <th scope="col">Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <?php
-                foreach ($sectors as $sector) {
-                    echo "<tr>";
-                    echo "<th scope=\"row\">" . $sector->getId() . "</th>";
-                    echo "<th scope=\"row\">" . $sector->getLabel() . "</th>";
-                    echo "<th scope=\"row\"> 
-                            <a href='". BASE_PATH . "/index.php?controller=sector&action=edit&id=". $sector->getId() ."'>
+                    <?php
+                    foreach ($sectors as $sector) {
+                        echo "<tr>";
+                        echo "<th scope=\"row\">" . $sector->getId() . "</th>";
+                        echo "<th scope=\"row\">" . $sector->getLabel() . "</th>";
+                        echo "<th scope=\"row\"> 
+                            <a href='" . BASE_PATH . "/index.php?controller=sector&action=edit&id=" . $sector->getId() . "'>
                                 <i class=\"material-icons orange600\">edit</i>
                             </a> ";
-                    if ($sector->isDeletable()) {
-                        echo "<a href='". BASE_PATH . "/index.php?controller=sector&action=delete&id=". $sector->getId() ."'>
+                        if ($sector->isDeletable()) {
+                            echo "<a href='" . BASE_PATH . "/index.php?controller=sector&action=delete&id=" . $sector->getId() . "'>
                                 <i class=\"material-icons red600\">delete</i>
                                 </a>";
-                    }
+                        }
 
-                    echo "</th>";
-                    echo "</tr>";
-                }
-                ?>
+                        echo "</th>";
+                        echo "</tr>";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>

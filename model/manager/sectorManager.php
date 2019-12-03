@@ -47,24 +47,26 @@ class SectorManager
         return $sectors;
     }
 
-    public static function getAllWithExtraInformations() {
+    public static function getAllWithExtraInformations()
+    {
         $pdo = initiateConnection();
 
-        $req = "SELECT DISTINCT S.*, SC.ID AS IS_DELETABLE FROM secteur S LEFT JOIN secteurs_structures SC ON (SC.ID_SECTEUR = S.ID)
-            GROUP BY S.ID, S.LIBELLE, SC.ID";
+        $req = "SELECT DISTINCT S.ID, S.LIBELLE, COUNT(SC.ID) AS IS_DELETABLE FROM secteur S LEFT JOIN secteurs_structures SC ON (SC.ID_SECTEUR = S.ID)
+                GROUP BY S.ID;
+        ";
         $stmt = $pdo->query($req);
 
         $sectors = [];
-
         while ($row = $stmt->fetch()) {
-            $sector = new Sector($row['ID'], $row['LIBELLE'], $row['IS_DELETABLE']? false: true);
+            $sector = new Sector($row['ID'], $row['LIBELLE'], $row['IS_DELETABLE'] != 0 ? false : true);
             $sectors[] = $sector;
         }
 
         return $sectors;
     }
 
-    public static function delete(int $id) {
+    public static function delete(int $id)
+    {
         $pdo = initiateConnection();
 
         $stmt = $pdo->prepare("DELETE FROM secteur WHERE ID = :id");
@@ -72,7 +74,8 @@ class SectorManager
         $stmt->execute();
     }
 
-    public static function save(Sector $sector) {
+    public static function save(Sector $sector)
+    {
         if ($sector->getId() != null) {
             return (new SectorManager)->update($sector);
         } else {
@@ -80,7 +83,8 @@ class SectorManager
         }
     }
 
-    private function create(Sector $sector) {
+    private function create(Sector $sector)
+    {
         $pdo = initiateConnection();
 
         // Insert the sector
@@ -98,7 +102,8 @@ class SectorManager
         return $id;
     }
 
-    private function update(Sector $sector) {
+    private function update(Sector $sector)
+    {
         $pdo = initiateConnection();
 
         // Update the sector
