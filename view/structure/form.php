@@ -61,16 +61,70 @@ $participantNumber = $structureType ? ($structureType == "association" ? ($selec
                     <input required id="participantNumber" name="participantNumber" type="number" placeholder="50000" value="<?= $participantNumber ?>" />
                 </div>
 
-                <div class="form-group">
-                    <label for="sector">Secteur <span class="required">*</span></label>
-                    <select name="sector" id="sector">
+                <!-- CREATE CASE -->
+                <?php if (!$selectedStructure) { ?>
+                    <div class="form-group">
+                        <label for="sector">Secteur(s) <span class="required">*</span></label> &nbsp;
+                        <div class="btn btn-primary btn-sm" id="btnAddSector">Ajouter secteur</div>
+                        <br><br>
+                        <div class="row" style="padding-left: 3%;" id="prototype/__0__/">
+                            <select required name="sector[]" id="sector" class="col-lg-10">
+                                <option value=""></option>
+                                <?php
+                                    foreach ($sectors as $sector) {
+                                        echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . ">" . $sector->getLabel() . "</option>";
+                                    }
+                                    ?>
+                            </select>
+                            <div class="col-lg-2"><i class="material-icons" id="iconRemoveSector" style="color: red" onclick="removeSector(this)">delete</i></div>
+                            <br><br>
+                        </div>
+                    </div>
+                <?php } else { ?>
+
+                    <!-- UPDATE CASE -->
+                    <div class="form-group">
+                        <label for="sector">Secteur(s) <span class="required">*</span></label> &nbsp;
+                        <div class="btn btn-primary btn-sm" id="btnAddSector">Ajouter secteur</div>
+                        <br><br>
                         <?php
-                        foreach ($sectors as $sector) {
-                            echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . "></option>";
-                        }
-                        ?>
-                    </select>
-                </div>
+                            $i = 0;
+                            foreach ($selectedStructure->getSectors() as $secteur) {
+                                if (0 == $i)
+                                    echo '<div class="row" style="padding-left: 3%;" id="prototype/__0__/">';
+                                else
+                                    echo '<div class="row" style="padding-left: 3%;">';
+
+
+                                echo '
+                                        <select required name="sector[]" id="sector" class="col-lg-10">
+                                            <option value=""></option>';
+
+                                foreach ($sectors as $sector) {
+                                    var_dump($secteur->getId(), $sector->getId());
+                                    if ($secteur->getId() == $sector->getId())
+                                        echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . " selected='selected'>" . $sector->getLabel() . "</option>";
+                                    else
+                                        echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . ">" . $sector->getLabel() . "</option>";
+                                }
+
+                                echo '  </select>
+                                        <div class="col-lg-2">
+                                            <i class="material-icons" id="iconRemoveSector" style="color: red" onclick="removeSector(this)">delete</i>
+                                        </div>
+                                        <br><br>
+                                        </div>
+                                        ';
+
+                                $i++;
+                            }
+                            ?>
+
+
+
+                    </div>
+
+                <?php } ?>
 
                 <div class="form-group">
                     <button class="button-link-create mx-auto"><?= $action == "new" ? "Créer" : "Modifier" ?></button>

@@ -17,24 +17,21 @@ class AssociationManager
      */
     public static function getFromId(int $id)
     {
-        $pdo = initiateConnection();
 
-        $stmt = $pdo->prepare("SELECT STR.*, SEC.ID AS SEC_ID, SEC.LIBELLE FROM structure STR 
-                Left JOIN secteurs_structures SC
-                    ON (SC.ID_STRUCTURE = STR.ID)
-                Left JOIN secteur SEC
-                    ON (SEC.ID = SC.ID_SECTEUR)
-                WHERE STR.id = ?");
-        $stmt->execute([$id]);
-        $row = $stmt->fetch();
+        try {
+            $pdo = initiateConnection();
 
-        $sector = null;
-        if ($row['SEC_ID']) {
-            $sector = new Sector($row['SEC_ID'], $row['LIBELLE']);
+            $req = "SELECT * FROM structure WHERE id = ?";
+            $stmt = $pdo->prepare($req);
+            $stmt->execute([$id]);
+            $row = $stmt->fetch();
+            $sectors = SectorManager::getAllThoseOfStructure($row['ID']);
+            $association = new Association($row['ID'], $row['NOM'], $row['RUE'], $row['CP'], $row['VILLE'], $row['NB_DONATEURS'], $sectors);
+
+            return $association;
+        } catch (\Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
         }
-        $association = new Association($row['ID'], $row['NOM'], $row['RUE'], $row['CP'], $row['VILLE'], $row['NB_DONATEURS'], $sector);
-
-        return $association;
     }
 
     /**
@@ -42,34 +39,22 @@ class AssociationManager
      */
     public static function getAll()
     {
-        $pdo = initiateConnection();
+        try {
+            $pdo = initiateConnection();
 
-        $req = "SELECT ID FROM structure WHERE ESTASSO = 1 ORDER BY NOM";
-        $stmt = $pdo->query($req);
+            $req = "SELECT ID FROM structure WHERE ESTASSO = 1 ORDER BY NOM";
+            $stmt = $pdo->query($req);
 
-        $associations = [];
+            $associations = [];
 
-        while ($row = $stmt->fetch()) {
-            $association = AssociationManager::getFromId($row['ID']);
-            $associations[] = $association;
+            while ($row = $stmt->fetch()) {
+                $association = AssociationManager::getFromId(intval($row['ID']));
+                $associations[] = $association;
+            }
+
+            return $associations;
+        } catch (\Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
         }
-
-        return $associations;
-    }
-
-    public static function save(Association $association) {
-        // If there is no id, save should create an entry in the database.
-        if ($association->getId() == null) {
-            return self::create($association);
-        }
-        return self::update($association);
-    }
-
-    public static function create(Association $association) {
-
-    }
-
-    public static function update(Association $association) {
-
     }
 }

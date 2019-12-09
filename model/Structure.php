@@ -9,7 +9,7 @@ class Structure
     protected $_streetName;
     protected $_postalCode;
     protected $_cityName;
-    protected $_sector;
+    protected $_sectors;
 
     /**
      * Structure constructor.
@@ -18,16 +18,16 @@ class Structure
      * @param string $_streetName
      * @param int $_postalCode
      * @param string $_cityName
-     * @param Sector|null $sector
+     * @param array|null $sectors
      */
-    public function __construct(int $id = null, string $_name, string $_streetName, int $_postalCode, string $_cityName, Sector $sector = null)
+    public function __construct(int $id = null, string $_name, string $_streetName, int $_postalCode, string $_cityName, array $sectors = [])
     {
         $this->_id = $id;
         $this->_name = $_name;
         $this->_streetName = $_streetName;
         $this->_postalCode = $_postalCode;
         $this->_cityName = $_cityName;
-        $this->_sector = $sector;
+        $this->_sectors = $sectors;
     }
 
     /**
@@ -116,18 +116,18 @@ class Structure
     }
 
     /**
-     * @return Sector|null
+     * @return array|null
      */
-    public function getSector()
+    public function getSectors()
     {
-        return $this->_sector;
+        return $this->_sectors;
     }
 
     /**
-     * @param Sector $sector
+     * @param array $sectors
      */
-    public function setSector(Sector $sector)
+    public function setSectors(array $sectors)
     {
-        $this->_sector = $sector;
+        $this->_sectors = $sectors;
     }
 }

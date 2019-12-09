@@ -15,11 +15,12 @@ class Company extends Structure
      * @param string $_streetName
      * @param int $_postalCode
      * @param string $_cityName
-     * @param $_shareholderNumber
+     * @param int $_shareholderNumber
+     * @param array $sectors
      */
-    public function __construct(int $id, string $name, string $streetName, int $postalCode, string $cityName, int $_shareholderNumber, Sector $sector = null)
+    public function __construct(int $id, string $name, string $streetName, int $postalCode, string $cityName, int $_shareholderNumber, array $sectors = [])
     {
-        parent::__construct($id, $name, $streetName, $postalCode, $cityName, $sector);
+        parent::__construct($id, $name, $streetName, $postalCode, $cityName, $sectors);
         $this->_shareholderNumber = $_shareholderNumber;
     }
 

@@ -17,10 +17,11 @@ class Association extends Structure
      * @param int $_postalCode
      * @param string $_cityName
      * @param int $_donorNumber
+     * @param array $sectors
      */
-    public function __construct(int $id = null, string $name, string $streetName, int $postalCode, string $cityName, int $_donorNumber, Sector $sector = null)
+    public function __construct(int $id = null, string $name, string $streetName, int $postalCode, string $cityName, int $_donorNumber, array $sectors = [])
     {
-        parent::__construct($id, $name, $streetName, $postalCode, $cityName, $sector);
+        parent::__construct($id, $name, $streetName, $postalCode, $cityName, $sectors);
         $this->_donorNumber = $_donorNumber;
     }
 

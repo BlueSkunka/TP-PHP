@@ -52,12 +52,16 @@ if (isset($_GET)) {
             }
 
             // Try to create the entity with the constructor.
-            $sector = SectorManager::getFromId($_POST["sector"]);
+            $sectors = [];
+            foreach ($_POST["sector"] as $key => $value) {
+                $sectors[] = SectorManager::getFromId($value);
+            }
+
             $entity = null;
             if ($_POST["type"] == "association") {
-                $entity = new Association($id, $_POST["name"], $_POST["streetName"], $_POST["postalCode"], $_POST["cityName"], $_POST["participantNumber"], $sector);
+                $entity = new Association($id, $_POST["name"], $_POST["streetName"], $_POST["postalCode"], $_POST["cityName"], $_POST["participantNumber"], $sectors);
             } else {
-                $entity = new Company($id, $_POST["name"], $_POST["streetName"], $_POST["postalCode"], $_POST["cityName"], $_POST["participantNumber"], $sector);
+                $entity = new Company($id, $_POST["name"], $_POST["streetName"], $_POST["postalCode"], $_POST["cityName"], $_POST["participantNumber"], $sectors);
             }
 
             StructureManager::save($entity);
@@ -72,5 +76,3 @@ if (isset($_GET)) {
             break;
     };
 }
-
-?>

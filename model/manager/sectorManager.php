@@ -16,15 +16,19 @@ class SectorManager
      */
     public static function getFromId(int $id)
     {
-        $pdo = initiateConnection();
+        try {
+            $pdo = initiateConnection();
 
-        $stmt = $pdo->prepare("SELECT * FROM secteur WHERE id = ?");
-        $stmt->execute([$id]);
-        $row = $stmt->fetch();
+            $stmt = $pdo->prepare("SELECT * FROM secteur WHERE id = ?");
+            $stmt->execute([$id]);
+            $row = $stmt->fetch();
 
-        $sector = new Sector($row['ID'], $row['LIBELLE']);
+            $sector = new Sector($row['ID'], $row['LIBELLE']);
 
-        return $sector;
+            return $sector;
+        } catch (\Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
     }
 
     /**
@@ -32,46 +36,58 @@ class SectorManager
      */
     public static function getAll()
     {
-        $pdo = initiateConnection();
+        try {
+            $pdo = initiateConnection();
 
-        $req = "SELECT * FROM secteur S";
-        $stmt = $pdo->query($req);
+            $req = "SELECT * FROM secteur S";
+            $stmt = $pdo->query($req);
 
-        $sectors = [];
+            $sectors = [];
 
-        while ($row = $stmt->fetch()) {
-            $sector = new Sector($row['ID'], $row['LIBELLE']);
-            $sectors[] = $sector;
+            while ($row = $stmt->fetch()) {
+                $sector = new Sector($row['ID'], $row['LIBELLE']);
+                $sectors[] = $sector;
+            }
+
+            return $sectors;
+        } catch (\Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
         }
-
-        return $sectors;
     }
 
     public static function getAllWithExtraInformations()
     {
-        $pdo = initiateConnection();
+        try {
+            $pdo = initiateConnection();
 
-        $req = "SELECT DISTINCT S.ID, S.LIBELLE, COUNT(SC.ID) AS IS_DELETABLE FROM secteur S LEFT JOIN secteurs_structures SC ON (SC.ID_SECTEUR = S.ID)
-                GROUP BY S.ID;
-        ";
-        $stmt = $pdo->query($req);
+            $req = "SELECT DISTINCT S.ID, S.LIBELLE, COUNT(SC.ID) AS IS_DELETABLE FROM secteur S LEFT JOIN secteurs_structures SC ON (SC.ID_SECTEUR = S.ID)
+                GROUP BY S.ID;";
 
-        $sectors = [];
-        while ($row = $stmt->fetch()) {
-            $sector = new Sector($row['ID'], $row['LIBELLE'], $row['IS_DELETABLE'] != 0 ? false : true);
-            $sectors[] = $sector;
+            $stmt = $pdo->query($req);
+
+            $sectors = [];
+            while ($row = $stmt->fetch()) {
+                $sector = new Sector($row['ID'], $row['LIBELLE'], $row['IS_DELETABLE'] != 0 ? false : true);
+                $sectors[] = $sector;
+            }
+
+            return $sectors;
+        } catch (\Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
         }
-
-        return $sectors;
     }
 
     public static function delete(int $id)
     {
-        $pdo = initiateConnection();
+        try {
+            $pdo = initiateConnection();
 
-        $stmt = $pdo->prepare("DELETE FROM secteur WHERE ID = :id");
-        $stmt->bindValue(":id", $id);
-        $stmt->execute();
+            $stmt = $pdo->prepare("DELETE FROM secteur WHERE ID = :id");
+            $stmt->bindValue(":id", $id);
+            $stmt->execute();
+        } catch (\Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
     }
 
     public static function save(Sector $sector)
@@ -85,39 +101,72 @@ class SectorManager
 
     private function create(Sector $sector)
     {
-        $pdo = initiateConnection();
+        try {
+            $pdo = initiateConnection();
 
-        // Insert the sector
-        $stmt = $pdo->prepare("
-            INSERT INTO secteur (ID, LIBELLE) VALUES (:id, :label)
-        ");
+            // Insert the sector
+            $stmt = $pdo->prepare("
+                INSERT INTO secteur (ID, LIBELLE) VALUES (:id, :label)
+                ");
 
-        $stmt->bindValue(':id', $sector->getId());
-        $stmt->bindValue(':label', $sector->getLabel());
+            $stmt->bindValue(':id', $sector->getId());
+            $stmt->bindValue(':label', $sector->getLabel());
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $id = $pdo->lastInsertId();
+            $id = $pdo->lastInsertId();
 
-        return $id;
+            return $id;
+        } catch (\Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
     }
 
     private function update(Sector $sector)
     {
-        $pdo = initiateConnection();
+        try {
+            $pdo = initiateConnection();
 
-        // Update the sector
-        $stmt = $pdo->prepare("
-            UPDATE secteur SET LIBELLE=:label WHERE ID=:id
-        ");
+            // Update the sector
+            $stmt = $pdo->prepare("
+                UPDATE secteur SET LIBELLE=:label WHERE ID=:id
+                ");
 
-        $stmt->bindValue(':id', $sector->getId());
-        $stmt->bindValue(':label', $sector->getLabel());
+            $stmt->bindValue(':id', $sector->getId());
+            $stmt->bindValue(':label', $sector->getLabel());
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $id = $pdo->lastInsertId();
+            $id = $pdo->lastInsertId();
 
-        return $id;
+            return $id;
+        } catch (\Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
+    }
+
+    public function getAllThoseOfStructure(int $structureId)
+    {
+        try {
+            $pdo = initiateConnection();
+
+            // * Retun all sector of a structure
+            $req = "SELECT S.ID FROM secteur S
+                JOIN secteurs_structures SS ON SS.ID_SECTEUR = S.ID
+                WHERE SS.ID_STRUCTURE = :structureId;";
+
+            $stmt = $pdo->prepare($req);
+            $stmt->bindValue(':structureId', $structureId);
+            $stmt->execute();
+
+            $sectors = [];
+            while ($row = $stmt->fetch()) {
+                $sectors[] = SectorManager::getFromId($row['ID']);
+            }
+
+            return $sectors;
+        } catch (\Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
     }
 }

@@ -16,40 +16,50 @@
             <h3> Associations : </h3>
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Rue</th>
-                    <th scope="col">CP</th>
-                    <th scope="col">Ville</th>
-                    <th scope="col">Nombre de donateur</th>
-                    <th scope="col">Secteur</th>
-                    <th scope="col">Actions</th>
-                </tr>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Rue</th>
+                        <th scope="col">CP</th>
+                        <th scope="col">Ville</th>
+                        <th scope="col">Nombre de donateur</th>
+                        <th scope="col">Secteur</th>
+                        <th scope="col">Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <?php
-                foreach ($associations as $association) {
-                    $sectorName = $association->getSector()? $association->getSector()->getLabel(): "null";
-                    echo "<tr>";
-                    echo "<th scope=\"row\">" . $association->getId() . "</th>";
-                    echo "<th scope=\"row\">" . $association->getName() . "</th>";
-                    echo "<th scope=\"row\">" . $association->getStreetName() . "</th>";
-                    echo "<th scope=\"row\">" . $association->getPostalCode() . "</th>";
-                    echo "<th scope=\"row\">" . $association->getCityName() . "</th>";
-                    echo "<th scope=\"row\">" . $association->getDonorNumber() . "</th>";
-                    echo "<th scope=\"row\">" . $sectorName . "</th>";
-                    echo "<th scope=\"row\"> 
-                            <a href='". BASE_PATH . "/index.php?controller=structure&action=edit&id=". $association->getId() ."'>
+                    <?php
+                    foreach ($associations as $association) {
+                        $i = 0;
+                        // $sectorName = $association->getSector() ? $association->getSector()->getLabel() : "null";
+                        echo "<tr>";
+                        echo "<th scope=\"row\">" . $association->getId() . "</th>";
+                        echo "<th scope=\"row\">" . $association->getName() . "</th>";
+                        echo "<th scope=\"row\">" . $association->getStreetName() . "</th>";
+                        echo "<th scope=\"row\">" . $association->getPostalCode() . "</th>";
+                        echo "<th scope=\"row\">" . $association->getCityName() . "</th>";
+                        echo "<th scope=\"row\">" . $association->getDonorNumber() . "</th>";
+                        echo "<th sccopr=\"row\" id='sector'>";
+                        foreach ($association->getSectors() as $sector) {
+                            if (0 == $i)
+                                echo "" . $sector->getLabel() . "&nbsp;";
+                            else
+                                echo ",<br>" . $sector->getLabel() . "&nbsp;";
+
+                            ++$i;
+                        }
+                        echo "</th>";
+                        echo "<th scope=\"row\"> 
+                            <a href='" . BASE_PATH . "/index.php?controller=structure&action=edit&id=" . $association->getId() . "'>
                                 <i class=\"material-icons orange600\">edit</i>
                             </a> 
-                            <a href='". BASE_PATH . "/index.php?controller=structure&action=delete&id=". $association->getId() ."'>
+                            <a href='" . BASE_PATH . "/index.php?controller=structure&action=delete&id=" . $association->getId() . "'>
                                 <i class=\"material-icons red600\">delete</i>
                             </a>
                          </th>";
-                    echo "</tr>";
-                }
-                ?>
+                        echo "</tr>";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -60,40 +70,48 @@
             <h3> Entreprises : </h3>
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Rue</th>
-                    <th scope="col">CP</th>
-                    <th scope="col">Ville</th>
-                    <th scope="col">Nombre d'actionnaires</th>
-                    <th scope="col">Secteur</th>
-                    <th scope="col">Actions</th>
-                </tr>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Rue</th>
+                        <th scope="col">CP</th>
+                        <th scope="col">Ville</th>
+                        <th scope="col">Nombre d'actionnaires</th>
+                        <th scope="col">Secteur</th>
+                        <th scope="col">Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <?php
-                foreach ($companies as $company) {
-                    $sectorName = $company->getSector()? $company->getSector()->getLabel(): "null";
-                    echo "<tr>";
-                    echo "<th scope=\"row\">" . $company->getId() . "</th>";
-                    echo "<th scope=\"row\">" . $company->getName() . "</th>";
-                    echo "<th scope=\"row\">" . $company->getStreetName() . "</th>";
-                    echo "<th scope=\"row\">" . $company->getPostalCode() . "</th>";
-                    echo "<th scope=\"row\">" . $company->getCityName() . "</th>";
-                    echo "<th scope=\"row\">" . $company->getShareholderNumber() . "</th>";
-                    echo "<th scope=\"row\">" . $sectorName . "</th>";
-                    echo "<th scope=\"row\"> 
-                            <a href='". BASE_PATH . "/index.php?controller=structure&action=edit&id=". $company->getId() ."'>
+                    <?php
+                    foreach ($companies as $company) {
+                        $i = 0;
+                        echo "<tr>";
+                        echo "<th scope=\"row\">" . $company->getId() . "</th>";
+                        echo "<th scope=\"row\">" . $company->getName() . "</th>";
+                        echo "<th scope=\"row\">" . $company->getStreetName() . "</th>";
+                        echo "<th scope=\"row\">" . $company->getPostalCode() . "</th>";
+                        echo "<th scope=\"row\">" . $company->getCityName() . "</th>";
+                        echo "<th scope=\"row\">" . $company->getShareholderNumber() . "</th>";
+                        echo "<th scope=\"row\">";
+                        foreach ($company->getSectors() as $sector) {
+                            if (0 == $i)
+                                echo "" . $sector->getLabel() . "&nbsp;";
+                            else
+                                echo ",<br>" . $sector->getLabel() . "&nbsp;";
+
+                            ++$i;
+                        }
+                        echo "<th scope=\"row\"> 
+                            <a href='" . BASE_PATH . "/index.php?controller=structure&action=edit&id=" . $company->getId() . "'>
                                 <i class=\"material-icons orange600\">edit</i>
                             </a> 
-                            <a href='". BASE_PATH . "/index.php?controller=structure&action=delete&id=". $company->getId() ."'>
+                            <a href='" . BASE_PATH . "/index.php?controller=structure&action=delete&id=" . $company->getId() . "'>
                                 <i class=\"material-icons red600\">delete</i>
                             </a>
                          </th>";
-                    echo "</tr>";
-                }
-                ?>
+                        echo "</tr>";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
