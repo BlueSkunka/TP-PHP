@@ -1,3 +1,0 @@
-Current navbar
-manytomany verifier unicite secteur sur une structure
-accueil + de details (nbDona / actio ...)
