@@ -24,4 +24,12 @@
             <p><span class="flashy-text"><?= count($sectors) ?></span> Secteur(s)</p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-4 text-center">
+            <p><span class="flashy-text"><?= $shareHolderNumber ?></span> Actionnaires</p>
+        </div>
+        <div class="col-lg-4 text-center">
+            <p><span class="flashy-text"><?= $donorNumber ?></span> Donnataires</p>
+        </div>
+    </div>
 </div>

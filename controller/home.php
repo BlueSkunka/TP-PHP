@@ -16,4 +16,16 @@ $associations = AssociationManager::getAll();
 $companies = CompanyManager::getAll();
 $sectors = SectorManager::getAll();
 
+// ? Récupération du nombre total d'actionnaires / donateurs
+$shareHolderNumber = 0;
+$donorNumber = 0;
+
+foreach ($associations as $association) {
+    $donorNumber += $association->getDonorNumber();
+}
+
+foreach ($companies as $company) {
+    $shareHolderNumber += $company->getShareholderNumber();
+}
+
 $view = "home";

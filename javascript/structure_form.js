@@ -23,8 +23,6 @@ const prototypeParent = prototype.parentElement;
 // * Ajout d'un nouveau prototype
 let btnAddSector = document.getElementById("btnAddSector");
 btnAddSector.onclick = function() {
-  console.log("cc");
-
   let newPrototype = prototype.cloneNode(true);
   prototypeParent.appendChild(newPrototype);
 };
