@@ -7,6 +7,18 @@ use model\Company;
 $structureType = $selectedStructure ? ($selectedStructure instanceof Association ? ("association") : "company") : null;
 $participantNumber = $structureType ? ($structureType == "association" ? ($selectedStructure->getDonorNumber()) : $selectedStructure->getShareholderNumber()) : null;
 
+function getPreferedValueForKey($editInputValue, $lastInputValue) {
+    // $_SESSION['structure'] = [
+    //     "name" => $_POST["name"],
+    //     "streetName" => $_POST["streetName"],
+    //     "postalCode" => $_POST["postalCode"],
+    //     "cityName" => $_POST["cityName"],
+    //     "participantNumber" => $_POST["participantNumber"],
+    //     "sectors" => $sectors
+    // ];
+
+}
+
 ?>
 <div class="container gap-top-sm">
     <div class="row">
@@ -20,7 +32,7 @@ $participantNumber = $structureType ? ($structureType == "association" ? ($selec
     <div class="row mt-4">
         <div class="offset-lg-3 col-lg-6">
             <form method="post" action="<?= BASE_PATH ?>/index.php?controller=structure&action=handle_submit">
-                <input type="hidden" name="id" value="<?= $selectedStructure ? $selectedStructure->getId() : null ?>" />
+                <input type="hidden" name="id" value="<?= $selectedStructure && $isEditMode ? $selectedStructure->getId() : null ?>" />
                 <div class="form-group">
                     <label for="name">Nom <span class="required">*</span></label>
                     <input required id="name" name="name" type="text" placeholder="WWF" value="<?= $selectedStructure ? $selectedStructure->getName() : null ?>" />
@@ -62,7 +74,7 @@ $participantNumber = $structureType ? ($structureType == "association" ? ($selec
                 </div>
 
                 <!-- CREATE CASE -->
-                <?php if (!$selectedStructure) { ?>
+                <?php if (!$isEditMode) { ?>
                     <div class="form-group">
                         <label for="sector">Secteur(s) <span class="required">*</span></label> &nbsp;
                         <div class="btn btn-primary btn-sm" id="btnAddSector">Ajouter secteur</div>

@@ -27,6 +27,10 @@ class StructureManager
             $stmt->execute([$id]);
             $row = $stmt->fetch();
 
+            if ($row == null) {
+                return null;
+            }
+            
             $sectors = SectorManager::getAllThoseOfStructure($row['ID']);
 
             $structure = null;
@@ -129,7 +133,7 @@ class StructureManager
             }
 
 
-            return $entity;
+            return $entity->getId();
         } catch (\Exception $e) {
             echo 'Exception reçue : ',  $e->getMessage(), "\n";
         }
@@ -179,7 +183,7 @@ class StructureManager
             }
 
 
-            return $id;
+            return intval($id);
         } catch (\Exception $e) {
             echo 'Exception reçue : ',  $e->getMessage(), "\n";
         }

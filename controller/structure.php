@@ -20,18 +20,33 @@ if (isset($_GET)) {
     switch ($action) {
         case 'new':
 
-            $view = "structure/form";
+            if (isset($_SESSION["last_structure_id"])) {
+                $lastStructureId = $_SESSION["last_structure_id"];
+                if ($lastStructureId != null) {
+                    $tempSelectedStructure = StructureManager::getFromId($lastStructureId);
+                    if ($tempSelectedStructure != null) {
+                        $selectedStructure = $tempSelectedStructure;
+                    }
+                }
+            }
+
+            $isEditMode = false;
+
             $sectors = SectorManager::getAll();
+            $view = "structure/form";
 
             break;
 
         case 'edit':
 
-            $view = "structure/form";
+            $isEditMode = true;
+
             $id = $_GET['id'];
             $selectedStructure = StructureManager::getFromId($id);
-            $sectors = SectorManager::getAll();
 
+            $sectors = SectorManager::getAll();
+            $view = "structure/form";
+            
             break;
 
         case 'delete':
@@ -64,7 +79,13 @@ if (isset($_GET)) {
                 $entity = new Company($id, $_POST["name"], $_POST["streetName"], $_POST["postalCode"], $_POST["cityName"], $_POST["participantNumber"], $sectors);
             }
 
-            StructureManager::save($entity);
+            
+            $structureId = StructureManager::save($entity);
+
+            if (!$id) {
+                $_SESSION['last_structure_id'] = $structureId;
+            }
+            
 
         case 'list':
         default:

@@ -1,6 +1,13 @@
 <?php
+    require_once "config/base_path.php";
 
-require_once "config/base_path.php";
+    function getPreferedValue($sector, $lastInputValue) {
+        if ($sector && $sector != null) {
+            return $sector->getLabel();
+        } else {
+            return $lastInputValue["libelle"];
+        }
+    }
 ?>
 <div class="container gap-top-sm">
     <div class="row">
@@ -17,7 +24,7 @@ require_once "config/base_path.php";
                 <input type="hidden" name="id" value="<?= $sector ? $sector->getId() : null ?>" />
                 <div class="form-group">
                     <label for="label">Libellé <span class="required">*</span></label>
-                    <input required id="label" name="label" type="text" placeholder="Informatique" value="<?= $sector ? $sector->getLabel() : null ?>" />
+                    <input required id="label" name="label" type="text" placeholder="Informatique" value="<?= getPreferedValue($sector, $lastInputValue) ?>" />
                 </div>
 
                 <div class="form-group">

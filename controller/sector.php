@@ -18,10 +18,13 @@ if (isset($_GET)) {
             $sector = new Sector($id, $_POST["label"]);
             SectorManager::save($sector);
 
+            $_SESSION["sector"] = [ "label" => $_POST["label"]];
+
             $view = "sector/list";
             $sectors = SectorManager::getAllWithExtraInformations();
             break;
         case 'new':
+            $lastInputValue = $_SESSION["sector"];
             $sector = null;
             $view = "sector/form";
 
