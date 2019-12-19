@@ -46,7 +46,7 @@ if (isset($_GET)) {
 
             $sectors = SectorManager::getAll();
             $view = "structure/form";
-            
+
             break;
 
         case 'delete':
@@ -66,12 +66,6 @@ if (isset($_GET)) {
                 $id = intval($_POST["id"]);
             }
 
-            // Verify if at least one sector is define, if not redirect with error message
-            if (is_null($id) && empty($_POST['sector'])) {
-                $message = "Veuillez renseigner au moins un secteur.";
-                header("Location: index.php?controller=structure&action=new&redirect=1");
-            }
-
             // Try to create the entity with the constructor.
             $sectors = [];
             foreach ($_POST["sector"] as $key => $value) {
@@ -85,13 +79,13 @@ if (isset($_GET)) {
                 $entity = new Company($id, $_POST["name"], $_POST["streetName"], $_POST["postalCode"], $_POST["cityName"], $_POST["participantNumber"], $sectors);
             }
 
-            
+
             $structureId = StructureManager::save($entity);
 
             if (!$id) {
                 $_SESSION['last_structure_id'] = $structureId;
             }
-            
+
 
         case 'list':
         default:

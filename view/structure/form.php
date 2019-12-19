@@ -7,7 +7,8 @@ use model\Company;
 $structureType = $selectedStructure ? ($selectedStructure instanceof Association ? ("association") : "company") : null;
 $participantNumber = $structureType ? ($structureType == "association" ? ($selectedStructure->getDonorNumber()) : $selectedStructure->getShareholderNumber()) : null;
 
-function getPreferedValueForKey($editInputValue, $lastInputValue) {
+function getPreferedValueForKey($editInputValue, $lastInputValue)
+{
     // $_SESSION['structure'] = [
     //     "name" => $_POST["name"],
     //     "streetName" => $_POST["streetName"],
@@ -31,7 +32,7 @@ function getPreferedValueForKey($editInputValue, $lastInputValue) {
     </div>
     <div class="row mt-4">
         <div class="offset-lg-3 col-lg-6">
-            <form method="post" action="<?= BASE_PATH ?>/index.php?controller=structure&action=handle_submit">
+            <form method="post" action="<?= BASE_PATH ?>/index.php?controller=structure&action=handle_submit" onsubmit="return formValidate()">
                 <input type="hidden" name="id" value="<?= $selectedStructure && $isEditMode ? $selectedStructure->getId() : null ?>" />
                 <div class="form-group">
                     <label for="name">Nom <span class="required">*</span></label>
@@ -83,10 +84,10 @@ function getPreferedValueForKey($editInputValue, $lastInputValue) {
                             <select required name="sector[]" id="sector" class="col-lg-10">
                                 <option value=""></option>
                                 <?php
-                                    foreach ($sectors as $sector) {
-                                        echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . ">" . $sector->getLabel() . "</option>";
-                                    }
-                                    ?>
+                                foreach ($sectors as $sector) {
+                                    echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . ">" . $sector->getLabel() . "</option>";
+                                }
+                                ?>
                             </select>
                             <div class="col-lg-2"><i class="material-icons" id="iconRemoveSector" style="color: red" onclick="removeSector(this)">delete</i></div>
                             <br><br>
@@ -100,27 +101,27 @@ function getPreferedValueForKey($editInputValue, $lastInputValue) {
                         <div class="btn btn-primary btn-sm" id="btnAddSector">Ajouter secteur</div>
                         <br><br>
                         <?php
-                            $i = 0;
-                            foreach ($selectedStructure->getSectors() as $secteur) {
-                                if (0 == $i)
-                                    echo '<div class="row" style="padding-left: 3%;" id="prototype/__0__/">';
-                                else
-                                    echo '<div class="row" style="padding-left: 3%;">';
+                        $i = 0;
+                        foreach ($selectedStructure->getSectors() as $secteur) {
+                            if (0 == $i)
+                                echo '<div class="row" style="padding-left: 3%;" id="prototype/__0__/">';
+                            else
+                                echo '<div class="row" style="padding-left: 3%;">';
 
 
-                                echo '
+                            echo '
                                         <select required name="sector[]" id="sector" class="col-lg-10">
                                             <option value=""></option>';
 
-                                foreach ($sectors as $sector) {
-                                    var_dump($secteur->getId(), $sector->getId());
-                                    if ($secteur->getId() == $sector->getId())
-                                        echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . " selected='selected'>" . $sector->getLabel() . "</option>";
-                                    else
-                                        echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . ">" . $sector->getLabel() . "</option>";
-                                }
+                            foreach ($sectors as $sector) {
+                                var_dump($secteur->getId(), $sector->getId());
+                                if ($secteur->getId() == $sector->getId())
+                                    echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . " selected='selected'>" . $sector->getLabel() . "</option>";
+                                else
+                                    echo "<option label=" . $sector->getLabel() . " value=" . $sector->getId() . ">" . $sector->getLabel() . "</option>";
+                            }
 
-                                echo '  </select>
+                            echo '  </select>
                                         <div class="col-lg-2">
                                             <i class="material-icons" id="iconRemoveSector" style="color: red" onclick="removeSector(this)">delete</i>
                                         </div>
@@ -128,9 +129,9 @@ function getPreferedValueForKey($editInputValue, $lastInputValue) {
                                         </div>
                                         ';
 
-                                $i++;
-                            }
-                            ?>
+                            $i++;
+                        }
+                        ?>
 
 
 
@@ -139,7 +140,7 @@ function getPreferedValueForKey($editInputValue, $lastInputValue) {
                 <?php } ?>
 
                 <div class="form-group">
-                    <button class="button-link-create mx-auto"><?= $action == "new" ? "Créer" : "Modifier" ?></button>
+                    <button type="submit" class="button-link-create mx-auto"><?= $action == "new" ? "Créer" : "Modifier" ?></button>
                 </div>
             </form>
         </div>
