@@ -40,14 +40,19 @@
                         echo "<th scope=\"row\">" . $association->getCityName() . "</th>";
                         echo "<th scope=\"row\">" . $association->getDonorNumber() . "</th>";
                         echo "<th sccopr=\"row\" id='sector'>";
-                        foreach ($association->getSectors() as $sector) {
-                            if (0 == $i)
-                                echo "" . $sector->getLabel() . "&nbsp;";
-                            else
-                                echo ",<br>" . $sector->getLabel() . "&nbsp;";
+                        if (!empty($association->getSectors())) {
+                            foreach ($association->getSectors() as $sector) {
+                                if (0 == $i)
+                                    echo "" . $sector->getLabel() . "&nbsp;";
+                                else
+                                    echo ",<br>" . $sector->getLabel() . "&nbsp;";
 
-                            ++$i;
+                                ++$i;
+                            }
+                        } else {
+                            echo "<p class='no_sector'>AUCUN SECTEUR</p>";
                         }
+
                         echo "</th>";
                         echo "<th scope=\"row\"> 
                             <a href='" . BASE_PATH . "/index.php?controller=structure&action=edit&id=" . $association->getId() . "'>
@@ -93,14 +98,19 @@
                         echo "<th scope=\"row\">" . $company->getCityName() . "</th>";
                         echo "<th scope=\"row\">" . $company->getShareholderNumber() . "</th>";
                         echo "<th scope=\"row\">";
-                        foreach ($company->getSectors() as $sector) {
-                            if (0 == $i)
-                                echo "" . $sector->getLabel() . "&nbsp;";
-                            else
-                                echo ",<br>" . $sector->getLabel() . "&nbsp;";
+                        if (!empty($company->getSectors())) {
+                            foreach ($company->getSectors() as $sector) {
+                                if (0 == $i)
+                                    echo "" . $sector->getLabel() . "&nbsp;";
+                                else
+                                    echo ",<br>" . $sector->getLabel() . "&nbsp;";
 
-                            ++$i;
+                                ++$i;
+                            }
+                        } else {
+                            echo "<p class='no_sector'>AUCUN SECTEUR</p>";
                         }
+
                         echo "<th scope=\"row\"> 
                             <a href='" . BASE_PATH . "/index.php?controller=structure&action=edit&id=" . $company->getId() . "'>
                                 <i class=\"material-icons orange600\">edit</i>

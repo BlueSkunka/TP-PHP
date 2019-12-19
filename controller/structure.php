@@ -66,6 +66,12 @@ if (isset($_GET)) {
                 $id = intval($_POST["id"]);
             }
 
+            // Verify if at least one sector is define, if not redirect with error message
+            if (is_null($id) && empty($_POST['sector'])) {
+                $message = "Veuillez renseigner au moins un secteur.";
+                header("Location: index.php?controller=structure&action=new&redirect=1");
+            }
+
             // Try to create the entity with the constructor.
             $sectors = [];
             foreach ($_POST["sector"] as $key => $value) {

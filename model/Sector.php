@@ -68,5 +68,4 @@ class Sector
     {
         $this->_isDeletable = $isDeletable;
     }
-
 }

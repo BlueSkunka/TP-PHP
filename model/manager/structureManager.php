@@ -30,7 +30,7 @@ class StructureManager
             if ($row == null) {
                 return null;
             }
-            
+
             $sectors = SectorManager::getAllThoseOfStructure($row['ID']);
 
             $structure = null;
@@ -121,17 +121,19 @@ class StructureManager
             $stmt->execute();
 
             // Finally, link back the new sector.
-            $stmt = $pdo->prepare("
-                INSERT INTO secteurs_structures (ID_STRUCTURE, ID_SECTEUR) VALUES (:id_structure, :id_sector)
+
+            if (!empty($entity->getSectors())) {
+                $stmt = $pdo->prepare("
+                    INSERT INTO secteurs_structures (ID_STRUCTURE, ID_SECTEUR) VALUES (:id_structure, :id_sector)
                 ");
 
-            foreach ($entity->getSectors() as $sector) {
-                $stmt->bindValue(':id_sector', $sector->getId());
-                $stmt->bindValue(':id_structure', $entity->getId());
+                foreach ($entity->getSectors() as $sector) {
+                    $stmt->bindValue(':id_sector', $sector->getId());
+                    $stmt->bindValue(':id_structure', $entity->getId());
 
-                $stmt->execute();
+                    $stmt->execute();
+                }
             }
-
 
             return $entity->getId();
         } catch (\Exception $e) {
@@ -171,15 +173,17 @@ class StructureManager
             $id = $pdo->lastInsertId();
 
             // Then, link the sector to this freshly created entity.
-            $stmt = $pdo->prepare("
-                INSERT INTO secteurs_structures (ID_STRUCTURE, ID_SECTEUR) VALUES (:id_structure, :id_sector)
+            if (!empty($entity->getSectors())) {
+                $stmt = $pdo->prepare("
+                    INSERT INTO secteurs_structures (ID_STRUCTURE, ID_SECTEUR) VALUES (:id_structure, :id_sector)
                 ");
 
-            foreach ($entity->getSectors() as $sector) {
-                $stmt->bindValue(':id_sector', $sector->getId());
-                $stmt->bindValue(':id_structure', $id);
+                foreach ($entity->getSectors() as $sector) {
+                    $stmt->bindValue(':id_sector', $sector->getId());
+                    $stmt->bindValue(':id_structure', $id);
 
-                $stmt->execute();
+                    $stmt->execute();
+                }
             }
 
 
