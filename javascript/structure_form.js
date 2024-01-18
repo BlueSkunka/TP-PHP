@@ -22,14 +22,14 @@ const prototypeParent = prototype.parentElement;
 
 // * Ajout d'un nouveau prototype
 let btnAddSector = document.getElementById("btnAddSector");
-btnAddSector.onclick = function() {
+btnAddSector.onclick = function () {
   let newPrototype = prototype.cloneNode(true);
   prototypeParent.appendChild(newPrototype);
 };
 
 // * Remove d'un prototype
 let iconRemoveSector = document.getElementById("iconRemoveSector");
-iconRemoveSector.onclick = function() {
+iconRemoveSector.onclick = function () {
   this.parentElement.parentElement.remove();
 };
 

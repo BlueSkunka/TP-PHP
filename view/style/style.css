@@ -68,6 +68,7 @@ table.table {
   display: block;
   width: 100%;
 }
+
 .form-group input[type="radio"] {
   display: inline;
   border-radius: 2px;
@@ -75,6 +76,7 @@ table.table {
   width: 49%;
   height: 24px;
 }
+
 .form-group select {
   height: 55px;
   padding: 15px;

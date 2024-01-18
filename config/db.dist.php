@@ -1,10 +1,11 @@
 <?php
 
-function getDatabaseCredentials() {
+function getDatabaseCredentials()
+{
     return [
         'host' => 'localhost',
         'user' => 'root',
-        'password' => 'pass',
+        'password' => 'password',
         'db' => 'api'
     ];
 }

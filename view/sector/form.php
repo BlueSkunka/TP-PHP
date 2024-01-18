@@ -1,13 +1,14 @@
 <?php
-    require_once "config/base_path.php";
+require_once "config/base_path.php";
 
-    function getPreferedValue($sector, $lastInputValue) {
-        if ($sector && $sector != null) {
-            return $sector->getLabel();
-        } else {
-            return $lastInputValue["libelle"];
-        }
+function getPreferedValue($sector, $lastInputValue)
+{
+    if ($sector && $sector != null) {
+        return $sector->getLabel();
+    } else {
+        return $lastInputValue["libelle"];
     }
+}
 ?>
 <div class="container gap-top-sm">
     <div class="row">

@@ -18,7 +18,7 @@ if (isset($_GET)) {
             $sector = new Sector($id, $_POST["label"]);
             SectorManager::save($sector);
 
-            $_SESSION["sector"] = [ "label" => $_POST["label"]];
+            $_SESSION["sector"] = ["label" => $_POST["label"]];
 
             $view = "sector/list";
             $sectors = SectorManager::getAllWithExtraInformations();
